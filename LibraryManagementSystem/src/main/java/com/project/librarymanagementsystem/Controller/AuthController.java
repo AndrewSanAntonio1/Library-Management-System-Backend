@@ -12,6 +12,7 @@ import com.project.librarymanagementsystem.DTO.RegisterResponse;
 import com.project.librarymanagementsystem.DTO.ResetPasswordRequest;
 import com.project.librarymanagementsystem.DTO.UpdateProfileRequest;
 import com.project.librarymanagementsystem.Service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest register){
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest register){
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(register));
     }
 

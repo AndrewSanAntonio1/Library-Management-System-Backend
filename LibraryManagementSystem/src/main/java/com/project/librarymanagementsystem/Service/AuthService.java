@@ -7,9 +7,12 @@ import com.project.librarymanagementsystem.Enum.UserStatus;
 import com.project.librarymanagementsystem.Mapper.UserMapper;
 import com.project.librarymanagementsystem.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -18,12 +21,17 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
+    @Transactional
     public RegisterResponse register(RegisterRequest request) {
+        log.info("Attempting to register user with username: {}", request.username());
+        
         if(userRepository.existsByUsername(request.username())) {
+            log.warn("Registration failed: Username '{}' already exists", request.username());
             throw new RuntimeException("Username already exists");
         }
 
         if (userRepository.existsByEmail(request.email())) {
+            log.warn("Registration failed: Email '{}' already exists", request.email());
             throw new RuntimeException("Email already exists");
         }
 
@@ -32,7 +40,9 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.MEMBER);
         user.setUserStatus(UserStatus.ACTIVE);
+        
         User savedUser = userRepository.save(user);
+        log.info("User registered successfully with ID: {}", savedUser.getId());
 
         return userMapper.toResponse(savedUser);
     }

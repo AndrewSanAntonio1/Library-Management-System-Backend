@@ -5,4 +5,6 @@ package com.project.librarymanagementsystem.Controller;
  */
 public @interface WebMvcTest {
 
+    Class<AuthorController> value();
+
 }
