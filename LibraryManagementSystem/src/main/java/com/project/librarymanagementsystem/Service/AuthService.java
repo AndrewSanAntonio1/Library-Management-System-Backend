@@ -1,5 +1,7 @@
 package com.project.librarymanagementsystem.Service;
 
+import com.project.librarymanagementsystem.DTO.LoginRequest;
+import com.project.librarymanagementsystem.DTO.LoginResponse;
 import com.project.librarymanagementsystem.DTO.RegisterRequest;
 import com.project.librarymanagementsystem.DTO.RegisterResponse;
 import com.project.librarymanagementsystem.Entity.User;
@@ -17,6 +19,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    // private final
 
     public RegisterResponse register(RegisterRequest request) {
         if(userRepository.existsByUsername(request.username())) {
@@ -35,6 +38,13 @@ public class AuthService {
         User savedUser = userRepository.save(user);
 
         return userMapper.toResponse(savedUser);
+    }
+
+    public LoginResponse login(LoginRequest request) {
+        User user = userRepository.findByEmail(request.email()).orElseThrow(()
+            -> new RuntimeException("Invalid email")
+        );
+
     }
 
 }

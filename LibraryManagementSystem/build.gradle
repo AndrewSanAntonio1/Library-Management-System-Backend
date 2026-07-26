@@ -19,21 +19,35 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.mapstruct:mapstruct:1.6.3'
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-    annotationProcessor 'org.projectlombok:lombok'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
-    testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
-    testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
-    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
-    testCompileOnly 'org.projectlombok:lombok'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testAnnotationProcessor 'org.projectlombok:lombok'
+    // Spring Boot Starters - Core Framework Dependencies
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA for database operations with Hibernate
+    implementation 'org.springframework.boot:spring-boot-starter-validation' // Bean validation with Hibernate Validator
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc' // Spring MVC for REST API development
+    implementation 'org.springframework.boot:spring-boot-starter-security' // Spring Security for authentication and authorization
+
+    // JWT Dependencies - Token-based Authentication
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.7' // JWT API for token creation and parsing
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.7' // JWT implementation
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.7' // JWT Jackson integration for JSON processing
+
+    // MapStruct - Object Mapping
+    implementation 'org.mapstruct:mapstruct:1.6.3' // MapStruct for DTO to Entity mapping
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3' // MapStruct annotation processor
+
+    // Lombok - Code Generation
+    compileOnly 'org.projectlombok:lombok' // Lombok for reducing boilerplate code (getters, setters, etc.)
+    annotationProcessor 'org.projectlombok:lombok' // Lombok annotation processor
+
+    // Database Driver
+    runtimeOnly 'com.mysql:mysql-connector-j' // MySQL JDBC driver
+
+    // Test Dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test' // JPA testing support
+    testImplementation 'org.springframework.boot:spring-boot-starter-validation-test' // Validation testing support
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test' // Web MVC testing support
+    testCompileOnly 'org.projectlombok:lombok' // Lombok for test classes
+    testAnnotationProcessor 'org.projectlombok:lombok' // Lombok annotation processor for tests
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit platform launcher
 }
 
 tasks.named('test') {
