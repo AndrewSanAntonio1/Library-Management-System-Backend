@@ -166,4 +166,52 @@ public class AuthService {
         return new MessageResponse("Password changed successfully");
     }
 
+    public ProfileResponse getProfile(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return new ProfileResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getFirstname(),
+                user.getLastname(),
+                user.getPhoneNumber(),
+                user.getRole(),
+                user.getUserStatus(),
+                user.getCreatedAt()
+        );
+    }
+
+    public ProfileResponse updateProfile(String email, UpdateProfileRequest request) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setFirstname(request.firstname());
+        user.setLastname(request.lastname());
+        user.setPhoneNumber(request.phoneNumber());
+
+        User updatedUser = userRepository.save(user);
+
+        return new ProfileResponse(
+                updatedUser.getId(),
+                updatedUser.getUsername(),
+                updatedUser.getEmail(),
+                updatedUser.getFirstname(),
+                updatedUser.getLastname(),
+                updatedUser.getPhoneNumber(),
+                updatedUser.getRole(),
+                updatedUser.getUserStatus(),
+                updatedUser.getCreatedAt()
+        );
+    }
+
+    public MessageResponse deleteAccount(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        userRepository.delete(user);
+        return new MessageResponse("Account deleted successfully");
+    }
+
 }
