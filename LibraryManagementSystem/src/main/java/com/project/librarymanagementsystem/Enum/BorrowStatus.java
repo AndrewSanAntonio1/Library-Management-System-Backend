@@ -1,13 +1,13 @@
 package com.project.librarymanagementsystem.Enum;
 
-public enum Role {
-    ADMIN("ADMIN"),
-    LIBRARIAN("LIBRARIAN"),
-    MEMBER("MEMBER");
+public enum BorrowStatus {
+    BORROWED("BORROWED"),
+    RETURNED("RETURNED"),
+    OVERDUE("OVERDUE");
 
     private final String display;
 
-    Role(String display) {
+    BorrowStatus(String display) {
         this.display = display;
     }
 

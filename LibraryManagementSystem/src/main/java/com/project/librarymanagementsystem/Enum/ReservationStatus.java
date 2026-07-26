@@ -1,13 +1,14 @@
 package com.project.librarymanagementsystem.Enum;
 
-public enum Role {
-    ADMIN("ADMIN"),
-    LIBRARIAN("LIBRARIAN"),
-    MEMBER("MEMBER");
+public enum ReservationStatus {
+    ACTIVE("ACTIVE"),
+    FULFILLED("FULFILLED"),
+    CANCELLED("CANCELLED"),
+    EXPIRED("EXPIRED");
 
     private final String display;
 
-    Role(String display) {
+    ReservationStatus(String display) {
         this.display = display;
     }
 
